@@ -1,4 +1,4 @@
-FROM python:3.6.4-alpine3.7
+FROM python:3.8.1-alpine3.11
 
 ENV LANG C.UTF-8
 
