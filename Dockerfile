@@ -1,9 +1,12 @@
-FROM python:3.8.1-alpine3.11
+FROM python:3.9.0a2-alpine3.10
 
 ENV LANG C.UTF-8
 
 COPY packages/snyk-linux /usr/local/bin/snyk-linux
 
+ENV PATH /usr/src/app/node_modules/.bin:${PATH}
+
+RUN apk add --update nodejs npm curl bash
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache \
