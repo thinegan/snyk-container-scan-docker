@@ -50,7 +50,7 @@ def main(docker_image_to_test):
         if snyk_org:
             snykcli_org_option = ' --org='+snyk_org
 
-        # Concatenate snykcli executable with options from pipeline variables
+        ## Concatenate snykcli executable with options from pipeline variables
         snykcli_exec = ' '\
         .join([snykcli_monitor_command, docker_image_to_test, snykcli_org_option])
 
