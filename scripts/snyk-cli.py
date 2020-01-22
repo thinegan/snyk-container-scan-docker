@@ -43,19 +43,19 @@ def main(docker_image_to_test):
     proc = subprocess.Popen(snykcli_exec, shell=True)
     stdout = proc.communicate()
 
-    # if proc.returncode == 0:
-    #     # Monitor snykcli commnad to scan images
-    #     snykcli_monitor_command = 'snyk monitor --docker '
-    #     snykcli_org_option = ''
-    #     if snyk_org:
-    #         snykcli_org_option = ' --org='+snyk_org
+    if proc.returncode == 0:
+        # Monitor snykcli commnad to scan images
+        snykcli_monitor_command = 'snyk monitor --docker '
+        snykcli_org_option = ''
+        if snyk_org:
+            snykcli_org_option = ' --org='+snyk_org
 
-    #     ## Concatenate snykcli executable with options from pipeline variables
-    #     snykcli_exec = ' '\
-    #     .join([snykcli_monitor_command, docker_image_to_test, snykcli_org_option])
+        ## Concatenate snykcli executable with options from pipeline variables
+        snykcli_exec = ' '\
+        .join([snykcli_monitor_command, docker_image_to_test, snykcli_org_option])
 
-    #     proc = subprocess.Popen(snykcli_exec, shell=True)
-    #     stdout = proc.communicate()
+        proc = subprocess.Popen(snykcli_exec, shell=True)
+        stdout = proc.communicate()
 
 
     if proc.returncode != 0:
