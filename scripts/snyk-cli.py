@@ -31,7 +31,7 @@ def main(docker_image_to_test):
     out, err = proc.communicate()
     
     # Base snykcli commnad to scan images
-    snykcli_base_command = 'snyk test --docker '
+    snykcli_base_command = 'snyk test --severity-threshold=high --docker '
     snykcli_org_option = ''
     if snyk_org:
         snykcli_org_option = ' --org='+snyk_org
