@@ -20,7 +20,6 @@ RUN apk update && \
         nodejs && \
     pip install --upgrade pip && \
     pip install requests && \
-    npm install fund && \
     npm install codefresh -g && \
     npm install snyk -g && \
     chmod +x /usr/local/bin/snyk-linux
