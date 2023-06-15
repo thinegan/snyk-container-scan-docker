@@ -1,0 +1,123 @@
+# More examples of Codefresh YAML can be found at
+# https://codefresh.io/docs/docs/yaml-examples/examples/
+
+version: "1.0"
+stages:
+  - prepare
+  - build
+  - scan
+  - test
+  - release
+
+steps:
+  clone:
+    stage: "prepare"
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "thinegan/codefresh-pipeline-snyk-app-docker-scan"
+    revision: "${{CF_BRANCH}}"
+    depth: 1
+    git: "git-thinegan-cf"
+
+  build:
+    stage: "prepare"
+    title: "Building Docker image"
+    type: "build"
+    image_name: "thinegan/codefresh-pipeline-snyk-app-docker-scan"
+    working_directory: "${{clone}}/docker"
+    tag: "latest"
+    # tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
+    dockerfile: Dockerfile
+    disable_push: true
+
+  # ReleaseVariables:
+  #   stage: prepare
+  #   image: anthonyzou/alpine-build-essentials:latest
+  #   working_directory: "${{clone}}/infra/charts"
+  #   commands:
+  #     - cf_export RELEASE_IMAGE_TAG="${{CF_SHORT_REVISION}}"
+  #     - cf_export RELEASE_VERSION="${{CF_SHORT_REVISION}}"
+  #     - cf_export ECR_IMAGE_REPO=crytera/templatephpfpm
+  #     - cf_export ECR_IMAGE_REPO2=crytera/nginx
+  #     - cf_export HELM_NAMESPACE=phpfpm
+  #     - cf_export KUBE_CONTEXT=stag-eks-test2
+  #     - cf_export APP_NAME=templatephpfpm
+  #     - cf_export APP_REPO="https://github.com/crytera/templatephpfpm.git"
+  #     - cf_export APP_PROJECT="product"
+
+  # build_nginx_image:
+  #   stage: prepare
+  #   title: Building Nginx Docker Image
+  #   type: build
+  #   image_name: ${{ECR_IMAGE_REPO2}}
+  #   working_directory: "${{clone}}/docker/${{APP_NAME}}"
+  #   tag: '${{RELEASE_IMAGE_TAG}}'
+  #   dockerfile: nginx/Dockerfile
+
+  # build_php_image:
+  #   stage: prepare
+  #   title: Building PHP Docker Image
+  #   type: build
+  #   image_name: ${{ECR_IMAGE_REPO}}
+  #   working_directory: "${{clone}}/docker/${{APP_NAME}}"
+  #   tag: '${{RELEASE_IMAGE_TAG}}'
+  #   dockerfile: php/Dockerfile
+
+  # clone_gitops:
+  #   stage: prepare
+  #   title: cloning gitops repo
+  #   type: git-clone
+  #   arguments:
+  #     repo: 'crytera/codefresh-gitops'
+  #     revision: 'master'
+  #   when:
+  #     branch:
+  #       only:
+  #         - master 
+
+
+# debug mode 21
+
+
+
+# # More examples of Codefresh YAML can be found at
+# # https://codefresh.io/docs/docs/yaml-examples/examples/
+
+# version: "1.0"
+# # Stages can help you organize your steps in stages
+# stages:
+#   - "clone"
+#   - "build"
+#   - "test"
+
+# steps:
+#   clone:
+#     stage: "clone"
+#     title: "Cloning repository"
+#     type: "git-clone"
+#     repo: "thinegan/codefresh-pipeline-snyk-app-docker-scan"
+#     # CF_BRANCH value is auto set when pipeline is triggered
+#     # Learn more at codefresh.io/docs/docs/codefresh-yaml/variables/
+#     revision: "${{CF_BRANCH}}"
+#     git: "git-thinegan-cf"
+
+#   build:
+#     stage: "build"
+#     title: "Building Docker image"
+#     type: "build"
+#     image_name: "thinegan/codefresh-pipeline-snyk-app-docker-scan"
+#     working_directory: "${{clone}}"
+#     tag: "latest"
+#     # tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
+#     dockerfile: "Dockerfile"
+#     disable_push: true
+
+#   test:
+#     stage: "test"
+#     title: "Running test"
+#     type: "freestyle" # Run any command
+#     image: "ubuntu:latest" # The image in which command will be executed
+#     working_directory: "${{clone}}" # Running command where code cloned
+#     commands:
+#       - "ls"
+
