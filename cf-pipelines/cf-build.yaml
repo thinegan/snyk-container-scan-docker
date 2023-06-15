@@ -14,7 +14,7 @@ steps:
     stage: "prepare"
     title: "Cloning repository"
     type: "git-clone"
-    repo: "thinegan/codefresh-pipeline-snyk-app-docker-scan"
+    repo: "thinegan/snyk-container-scan-docker"
     revision: "${{CF_BRANCH}}"
     depth: 1
     git: "git-thinegan-cf"
@@ -23,7 +23,7 @@ steps:
     stage: "prepare"
     title: "Building Docker image"
     type: "build"
-    image_name: "thinegan/codefresh-pipeline-snyk-app-docker-scan"
+    image_name: "thinegan/snyk-container-scan-docker"
     working_directory: "${{clone}}/docker"
     tag: "latest"
     # tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
