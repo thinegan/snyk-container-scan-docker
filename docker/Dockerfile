@@ -6,6 +6,9 @@ COPY packages/snyk-linux /usr/local/bin/snyk-linux
 
 ENV PATH /usr/src/app/node_modules/.bin:${PATH}
 
+WORKDIR /usr/app
+COPY ./ ./
+
 RUN apk add nodejs --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/main --allow-untrusted
 RUN apk add --update curl bash
 RUN apk update && \
@@ -15,7 +18,9 @@ RUN apk update && \
         git \
         npm \
         nodejs && \
+    pip install --upgrade pip && \
     pip install requests && \
+    npm install fund && \
     npm install codefresh -g && \
     npm install snyk -g && \
     chmod +x /usr/local/bin/snyk-linux
